@@ -10,18 +10,24 @@
       "defaultValue": "[resourceGroup().location]"
     }
   },
+  "variables": {
+    "hostingPlanName": "[concat(parameters('namePrefix'), '-function-plan')]",
+    "functionAppName": "[concat(parameters('namePrefix'), '-function-app')]",
+    "storageAccountName": "[uniqueString(concat(parameters('namePrefix'), resourceGroup().id))]"
+  },
   "resources": [
     {
       "apiVersion": "2018-11-01",
-      "name": "[variables('functionAppName')]",
-      "type": "Microsoft.Web/sites",
-      "kind": "functionapp",
-      "location": "[parameters('location')]",
-      "tags": {},
       "dependsOn": [
         "[concat('Microsoft.Web/serverfarms/', variables('hostingPlanName'))]",
         "[concat('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
       ],
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "kind": "functionapp",
+      "location": "[parameters('location')]",
+      "name": "[variables('functionAppName')]",
       "properties": {
         "name": "[variables('functionAppName')]",
         "siteConfig": {
@@ -42,7 +48,9 @@
         },
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('hostingPlanName'))]",
         "clientAffinityEnabled": false
-      }
+      },
+      "tags": {},
+      "type": "Microsoft.Web/sites"
     },
     {
       "apiVersion": "2018-11-01",
@@ -70,10 +78,5 @@
       },
       "type": "Microsoft.Storage/storageAccounts"
     }
-  ],
-  "variables": {
-    "hostingPlanName": "[concat(parameters('namePrefix'), '-function-plan')]",
-    "functionAppName": "[concat(parameters('namePrefix'), '-function-app')]",
-    "storageAccountName": "[uniqueString(concat(parameters('namePrefix'), resourceGroup().id))]"
-  }
+  ]
 }
