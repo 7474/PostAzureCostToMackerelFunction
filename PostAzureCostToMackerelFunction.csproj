@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
-    <UseNETCoreGenerator>true</UseNETCoreGenerator>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Koudenpa.Mackerel.Api\**" />
@@ -11,7 +10,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Azure.Management.Consumption" Version="3.0.2" />
-    <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Azure.Services.AppAuthentication" Version="1.4.0" />
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.5" />
   </ItemGroup>
   <ItemGroup>
@@ -25,5 +24,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
 </Project>

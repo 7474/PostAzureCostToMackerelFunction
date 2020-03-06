@@ -1,3 +1,5 @@
+using Microsoft.Azure.Services.AppAuthentication;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System;
 using System.Threading.Tasks;
@@ -6,15 +8,20 @@ namespace PostAzureCostToMackerelFunction
 {
     public class Authentication
     {
+        private AzureServiceTokenProvider azureServiceTokenProvider;
         private TokenCache tokenCache;
         private AuthenticationContext authenticationContext;
         private ClientCredential clientCredential;
 
         public Authentication()
         {
-            var aadDomain = Environment.GetEnvironmentVariable("AADDomain");
-            var clientId = Environment.GetEnvironmentVariable("ClientId");
-            var clientSecret = Environment.GetEnvironmentVariable("ClientSecret");
+            // マネージドIDでの認証を構成する。
+            azureServiceTokenProvider = new AzureServiceTokenProvider();
+
+            // フェイルバック先としてADALでの認証も構成する。
+            var aadDomain = Environment.GetEnvironmentVariable("AADDomain") ?? "dumy";
+            var clientId = Environment.GetEnvironmentVariable("ClientId") ?? "dumy";
+            var clientSecret = Environment.GetEnvironmentVariable("ClientSecret") ?? "dumy";
 
             tokenCache = new TokenCache();
             authenticationContext = new AuthenticationContext(
@@ -23,12 +30,21 @@ namespace PostAzureCostToMackerelFunction
             clientCredential = new ClientCredential(clientId, clientSecret);
         }
 
-        public async Task<string> AcquireTokenAsync()
+        public async Task<string> AcquireTokenAsync(ILogger log)
         {
-            var result = await authenticationContext.AcquireTokenAsync(
-                "https://management.azure.com/", clientCredential);
-
-            return result.AccessToken;
+            try
+            {
+                string accessToken = await azureServiceTokenProvider.GetAccessTokenAsync(
+                    "https://management.azure.com/");
+                return accessToken;
+            }
+            catch (Exception ex)
+            {
+                log.LogInformation(ex.Message);
+                var result = await authenticationContext.AcquireTokenAsync(
+                    "https://management.azure.com/", clientCredential);
+                return result.AccessToken;
+            }
         }
     }
 }

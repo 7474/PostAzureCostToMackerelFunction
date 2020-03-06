@@ -29,7 +29,7 @@ namespace PostAzureCostToMackerelFunction
             log.LogInformation("C# HTTP trigger function processed a request.");
             log.LogInformation(JsonConvert.SerializeObject(req));
 
-            IPage<UsageDetail> usageDetailList = await QueryUsageDetails(req.SubscriptionId);
+            IPage<UsageDetail> usageDetailList = await QueryUsageDetails(log, req.SubscriptionId);
             if (usageDetailList.Count() == 0)
             {
                 log.LogInformation("Usage not found.");
@@ -42,10 +42,10 @@ namespace PostAzureCostToMackerelFunction
             return new NoContentResult();
         }
 
-        private static async Task<IPage<UsageDetail>> QueryUsageDetails(string subscriptionId)
+        private static async Task<IPage<UsageDetail>> QueryUsageDetails(ILogger log, string subscriptionId)
         {
             // https://docs.microsoft.com/ja-jp/rest/api/consumption/
-            string token = await authentication.AcquireTokenAsync();
+            string token = await authentication.AcquireTokenAsync(log);
             var consumptionClient = new ConsumptionManagementClient(new TokenCredentials(token))
             {
                 SubscriptionId = subscriptionId,
