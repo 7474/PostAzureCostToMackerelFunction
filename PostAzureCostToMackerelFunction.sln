@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PostAzureCostToMackerelFunction", "PostAzureCostToMackerelFunction.csproj", "{DAECD7C3-C87C-4A6B-860F-33A0D7B8AE2A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Koudenpa.Mackerel.Api", "Koudenpa.Mackerel.Api\Koudenpa.Mackerel.Api.csproj", "{9627D665-8F51-4243-9851-4F6007C369AD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAECD7C3-C87C-4A6B-860F-33A0D7B8AE2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAECD7C3-C87C-4A6B-860F-33A0D7B8AE2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAECD7C3-C87C-4A6B-860F-33A0D7B8AE2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAECD7C3-C87C-4A6B-860F-33A0D7B8AE2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9627D665-8F51-4243-9851-4F6007C369AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9627D665-8F51-4243-9851-4F6007C369AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9627D665-8F51-4243-9851-4F6007C369AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9627D665-8F51-4243-9851-4F6007C369AD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EB474CDD-BA66-49C5-A5C5-E720B05DEEA3}
+	EndGlobalSection
+EndGlobal
