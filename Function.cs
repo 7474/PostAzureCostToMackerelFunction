@@ -44,6 +44,7 @@ namespace PostAzureCostToMackerelFunction
 
         private static async Task<IPage<UsageDetail>> QueryUsageDetails(string subscriptionId)
         {
+            // https://docs.microsoft.com/ja-jp/rest/api/consumption/
             string token = await authentication.AcquireTokenAsync();
             var consumptionClient = new ConsumptionManagementClient(new TokenCredentials(token))
             {
