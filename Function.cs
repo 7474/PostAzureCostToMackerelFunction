@@ -81,7 +81,7 @@ namespace PostAzureCostToMackerelFunction
             config.ApiKey.Add("X-Api-Key", Environment.GetEnvironmentVariable("MackerelApiKey"));
             var serviceMetricApi = new ServiceMetricApi(config);
             var serviceMetrics = costPerService.Select(x => new Koudenpa.Mackerel.Api.Model.ServiceMetricValue(
-                 string.Join(".", subscriptionName, "costPerService", x.ConsumedService), usageTime, x.PretaxCost.Value))
+                 string.Join(".", subscriptionName, "costPerService", x.ConsumedService.Replace(".", "")), usageTime, x.PretaxCost.Value))
             .Append(new Koudenpa.Mackerel.Api.Model.ServiceMetricValue(
                  string.Join(".", subscriptionName, "totalCost"), usageTime, totalCost.Value))
             .ToList();
