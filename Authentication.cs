@@ -19,9 +19,9 @@ namespace PostAzureCostToMackerelFunction
             azureServiceTokenProvider = new AzureServiceTokenProvider();
 
             // フェイルバック先としてADALでの認証も構成する。
-            var aadDomain = Environment.GetEnvironmentVariable("AADDomain") ?? "dumy";
-            var clientId = Environment.GetEnvironmentVariable("ClientId") ?? "dumy";
-            var clientSecret = Environment.GetEnvironmentVariable("ClientSecret") ?? "dumy";
+            var aadDomain = Environment.GetEnvironmentVariable("AADDomain");
+            var clientId = Environment.GetEnvironmentVariable("ClientId");
+            var clientSecret = Environment.GetEnvironmentVariable("ClientSecret");
 
             tokenCache = new TokenCache();
             authenticationContext = new AuthenticationContext(
