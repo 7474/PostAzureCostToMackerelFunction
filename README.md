@@ -9,7 +9,7 @@ An Azure Function that posts the cost of
 
 1. Create Function App.
     - You can use [ARM templates](arm/template.json).
-      This template configure [Management ID](https://docs.microsoft.com/ja-jp/azure/active-directory/managed-identities-azure-resources/overview).
+      This template configure [Managed ID](https://docs.microsoft.com/ja-jp/azure/active-directory/managed-identities-azure-resources/overview).
 1. [Add Role to Application](https://docs.microsoft.com/ja-jp/azure/role-based-access-control/role-assignments-portal#add-a-role-assignment)
     - e.g. [Cost Management Reader](https://docs.microsoft.com/ja-jp/azure/role-based-access-control/built-in-roles#cost-management-reader)
 1. Deploy the Function App by any way. 
