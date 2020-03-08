@@ -89,7 +89,7 @@ namespace PostAzureCostToMackerelFunction
                 .ToList();
 
             var subscriptionName = usageDetailList.First().SubscriptionName;
-            var usageTime = usageTimestamp.Value.ToUniversalTime().AddYears(-1969).Ticks / 10000000;
+            var usageTime = (usageTimestamp.Value.ToUniversalTime().Ticks - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).Ticks) / 10000000;
             var serviceMetrics = costPerService.Select(x => new Koudenpa.Mackerel.Api.Model.ServiceMetricValue(
                      string.Join(".", subscriptionName, "costPerService", x.ConsumedService.Replace(".", "")), usageTime, x.PretaxCost.Value))
                 .Append(new Koudenpa.Mackerel.Api.Model.ServiceMetricValue(
