@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Management.Consumption;
 using Microsoft.Azure.Management.Consumption.Models;
+using Microsoft.Azure.Management.ResourceManager.Fluent.Core;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.Extensions.Logging;
@@ -68,7 +69,8 @@ namespace PostAzureCostToMackerelFunction
             {
                 SubscriptionId = subscriptionId,
             };
-            var usageDetailList = await consumptionClient.UsageDetails.ListAsync();
+            var usageDetailList = (await consumptionClient.UsageDetails.ListAsync())
+                .AsContinuousCollection(x => Extensions.Synchronize(() => consumptionClient.UsageDetails.ListNextAsync(x)));
             return usageDetailList.ToList();
         }
 
